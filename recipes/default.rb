@@ -27,7 +27,7 @@ if platform_family?("debian")
     group "root"
   end
 
-  service "graphdat-agent" do
+  service "graphdat" do
     supports :status => true, :restart => true
     action [ :enable, :restart ]
   end
