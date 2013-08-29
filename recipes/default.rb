@@ -35,5 +35,5 @@ end
 
 service "graphdat" do
   supports :status => true, :restart => true
-  action [ :enable, :restart ]
+  action [ :enable, :start ]
 end
