@@ -15,12 +15,7 @@ end
 if platform_family?("debian")
   require_recipe "apt"
 
-  apt_repository "graphdat" do
-    uri "http://apt.graphdat.com"
-    distribution node['lsb']['codename']
-    components ["non-free"]
-  end
-
+  ### They don't appear to have a key server setup
   cookbook_file "graphdat.gpg.apt" do
     path "/var/lib/graphdat/graphdat.gpg.apt"
     action :create
@@ -29,6 +24,12 @@ if platform_family?("debian")
   execute "add apt gpg key" do
     command "apt-key add /var/lib/graphdat/graphdat.gpg.apt"
     action :run
+  end
+
+  apt_repository "graphdat" do
+    uri "http://apt.graphdat.com"
+    distribution node['lsb']['codename']
+    components ["non-free"]
   end
   
 ### FIX ME: Add support for other platform_families  
