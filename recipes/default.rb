@@ -12,7 +12,7 @@ if platform_family?("debian")
     uri "http://apt.graphdat.com"
     distribution node['lsb']['codename']
     components ["non-free"]
-    keyserver "subkeys.pgp.net"
+    keyserver "apt.graphdat.com"
     key "0FC6984B"
   end
   
