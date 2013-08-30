@@ -26,14 +26,16 @@ package "graphdat-agent" do
   action :install
 end
 
-template "/etc/graphdat.conf" do
-  source "graphdat.conf.erb"
-  mode 0640
-  owner "root"
-  group "root"
-end
-
 service "graphdat" do
   supports :status => true, :restart => true
   action [ :enable, :start ]
 end
+
+template "/etc/graphdat.conf" do
+  source "graphdat.conf.erb"
+  mode 0644
+  owner "root"
+  group "root"
+  notifies :restart, "service[graphdat]", :delayed
+end
+
