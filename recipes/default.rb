@@ -5,6 +5,13 @@
 # Copyright 2013, TrueAbility, Inc.
 #
 
+directory "/var/lib/graphdat" do
+  owner "root"
+  group "root"
+  mode 0755
+  action :create
+end
+
 if platform_family?("debian")
   require_recipe "apt"
 
@@ -12,15 +19,22 @@ if platform_family?("debian")
     uri "http://apt.graphdat.com"
     distribution node['lsb']['codename']
     components ["non-free"]
-    keyserver "apt.graphdat.com"
-    key "0FC6984B"
+  end
+
+  cookbook_file "graphdat.gpg.apt" do
+    path "/var/lib/graphdat/graphdat.gpg.apt"
+    action :create
+  end
+
+  execute "add apt gpg key" do
+    command "apt-key add /var/lib/graphdat/graphdat.gpg.apt"
+    action :run
   end
   
 ### FIX ME: Add support for other platform_families  
 # elsif platform_family?("rhel")
 
 end
-
 
 package "graphdat-agent" do
   action :install
