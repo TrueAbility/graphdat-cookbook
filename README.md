@@ -52,6 +52,13 @@ Example:
 ```json
 {
   "name":"my_node",
+  "default_attributes": {
+    "graphdat": {
+      "account_id": "XXX",
+      "project_id": "XXX",
+      "api_key": "api.XXXXX"
+    }
+  },
   "run_list": [
     "recipe[graphdat]"
   ]
